@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int INF = 1e9;
+int main()
+{
+  int numberofvertices;
+  cout<<"Enter number of vertices in the graph: ";
+  cin>>numberofvertices;
+  int numberofedges;
+  cout<<"Enter the number of edges: ";
+  cin>>numberofedges;
+  vector<vector<int>>edgeList;
+  for(int i = 0;i<numberofedges;i++)
+  {
+    int startvertex,endvertex,weight;
+    cout<<"Enter the start vertex: ";
+    cin>>startvertex;
+    cout<<"Enter the end vertex: ";
+    cin>>endvertex;
+    cout<<"Enter the weight bertween start and end vertex: ";
+    cin>>weight;
+    edgeList.push_back({startvertex,endvertex,weight});
+  }
+  int sourcevertex;
+  cout<<"Enter the source vertex: ";
+  cin>>sourcevertex;
+  vector<int>distancearray(numberofvertices,INF);
+  distancearray[sourcevertex] = 0;
+  for(int i = 0;i<numberofvertices-1;i++)
+  {
+    for(auto iterator: edgeList)
+    {
+      int u,v,w;
+      u = iterator[0];
+      v = iterator[1];
+      w = iterator[2];
+      if((distancearray[u]+w)<distancearray[v])
+      {
+        distancearray[v] = distancearray[u]+w;
+      }
+    }
+  }
+  cout<<"The shortest path from the source vertex "<<sourcevertex<<" to every vertex is: ";
+  for(auto iter:distancearray)
+  {
+    cout<<iter<<" ";
+  }
+  return 0;
+}
